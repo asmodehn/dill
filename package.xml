@@ -1,0 +1,23 @@
+<package>
+  <name>dill</name>
+  <version>0.2.4</version>
+  <description>
+      serialize all of python
+  </description>
+
+  <license>BSD</license>
+
+  <url type="repository">https://github.com/asmodehn/dill</url>
+  <url type="bugtracker">https://github.com/asmodehn/dill/issues</url>
+
+  <author email="mmckerns@caltech.edu">Mike McKerns</author>
+  <maintainer email="asmodehn@gmail.com">AlexV</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roslint</build_depend>
+
+</package>
+
+
+

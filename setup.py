@@ -7,6 +7,10 @@
 
 from __future__ import with_statement, absolute_import
 import os
+cwd = os.getcwd()
+mwd = os.path.dirname(os.path.realpath(__file__))
+info_filepath = os.path.join(mwd,'dill/info.py')
+readme_filepath = os.path.join(mwd,'README')
 
 # set version numbers
 stable_version = '0.2.4'
@@ -23,13 +27,11 @@ except ImportError:
     has_setuptools = False
 
 # generate version number
-if os.path.exists('dill/info.py'):
+if os.path.exists(info_filepath):
     # is a source distribution, so use existing version
-    os.chdir('dill')
-    with open('info.py','r') as f:
+    with open(info_filepath,'r') as f:
         f.readline() # header
         this_version = f.readline().split()[-1].strip("'")
-    os.chdir('..')
 elif stable_version == target_version:
     # we are building a stable release
     this_version = target_version
@@ -222,11 +224,11 @@ http://arxiv.org/pdf/1202.1056 for further information.
 """ % {'relver' : stable_version, 'thisver' : this_version}
 
 # write readme file
-with open('README', 'w') as file:
+with open(readme_filepath, 'w') as file:
     file.write(long_description)
 
 # generate 'info' file contents
-def write_info_py(filename='dill/info.py'):
+def write_info_py(filename=info_filepath):
     contents = """# THIS FILE GENERATED FROM SETUP.PY
 this_version = '%(this_version)s'
 stable_version = '%(stable_version)s'
