@@ -8,6 +8,10 @@
 test dill's ability to handle nested functions
 """
 
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import dill as pickle
 pickle.settings['recurse'] = True
 import math

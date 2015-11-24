@@ -5,6 +5,11 @@
 # License: 3-clause BSD.  The full license text is available at:
 #  - http://trac.mystic.cacr.caltech.edu/project/pathos/browser/dill/LICENSE
 
+
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from dill.detect import baditems, badobjects, badtypes, errors, parent, at, globalvars
 from dill import settings
 

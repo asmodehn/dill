@@ -1,55 +1,7 @@
-#!/usr/bin/env python
-#
-# Author: Mike McKerns (mmckerns @caltech and @uqfoundation)
-# Copyright (c) 2008-2015 California Institute of Technology.
-# License: 3-clause BSD.  The full license text is available at:
-#  - http://trac.mystic.cacr.caltech.edu/project/pathos/browser/dill/LICENSE
-
-from __future__ import with_statement, absolute_import
-import os
-cwd = os.getcwd()
-mwd = os.path.dirname(os.path.realpath(__file__))
-info_filepath = os.path.join(mwd,'dill/info.py')
-readme_filepath = os.path.join(mwd,'README')
-
-# set version numbers
+# THIS FILE GENERATED FROM SETUP.PY
+this_version = '0.2.5.dev0'
 stable_version = '0.2.4'
-target_version = '0.2.5'
-is_release = stable_version == target_version
-
-# check if easy_install is available
-try:
-#   import __force_distutils__ #XXX: uncomment to force use of distutills
-    from setuptools import setup
-    has_setuptools = True
-except ImportError:
-    from distutils.core import setup
-    has_setuptools = False
-
-# generate version number
-if os.path.exists(info_filepath):
-    # is a source distribution, so use existing version
-    with open(info_filepath,'r') as f:
-        f.readline() # header
-        this_version = f.readline().split()[-1].strip("'")
-elif stable_version == target_version:
-    # we are building a stable release
-    this_version = target_version
-else:
-    # we are building a distribution
-    this_version = target_version + '.dev0'
-    if is_release:
-        from datetime import date
-        today = "".join(date.isoformat(date.today()).split('-'))
-        this_version += "-" + today
-
-# get the license info
-with open('LICENSE') as file:
-    license_text = file.read()
-
-# generate the readme text
-long_description = \
-"""-----------------------------
+readme = '''-----------------------------
 dill: serialize all of python
 -----------------------------
 
@@ -118,7 +70,7 @@ Dill also provides the capability to::
 Current Release
 ===============
 
-This version is dill-%(relver)s.
+This version is dill-0.2.4.
 
 The latest stable version of dill is available from::
 
@@ -156,8 +108,8 @@ Dill is packaged to install from source, so you must
 download the tarball, unzip, and run the installer::
 
     [download]
-    $ tar -xvzf dill-%(thisver)s.tgz
-    $ cd dill-%(thisver)s
+    $ tar -xvzf dill-0.2.5.dev0.tgz
+    $ cd dill-0.2.5.dev0
     $ python setup py build
     $ python setup py install
 
@@ -221,91 +173,40 @@ acknowledge use of dill by citing the following in your publication::
 Please see http://trac.mystic.cacr.caltech.edu/project/pathos or
 http://arxiv.org/pdf/1202.1056 for further information.
 
-""" % {'relver' : stable_version, 'thisver' : this_version}
+'''
+license = '''This software is part of the open-source mystic project at the California
+Institute of Technology, and is available subject to the conditions and
+terms laid out below. By downloading and using this software you are
+agreeing to the following conditions.
 
-# write readme file
-with open(readme_filepath, 'w') as file:
-    file.write(long_description)
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met::
 
-# generate 'info' file contents
-def write_info_py(filename=info_filepath):
-    contents = """# THIS FILE GENERATED FROM SETUP.PY
-this_version = '%(this_version)s'
-stable_version = '%(stable_version)s'
-readme = '''%(long_description)s'''
-license = '''%(license_text)s'''
-"""
-    with open(filename, 'w') as file:
-        file.write(contents % {'this_version' : this_version,
-                               'stable_version' : stable_version,
-                               'long_description' : long_description,
-                               'license_text' : license_text })
-    return
+    - Redistribution of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
 
-# write info file
-write_info_py()
+    - Redistribution in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentations and/or other materials provided with the distribution.
 
-# build the 'setup' call
-setup_code = """
-setup(name='dill',
-      version='%s',
-      description='a utility for serialization of python objects',
-      long_description = '''%s''',
-      author = 'Mike McKerns',
-      maintainer = 'Mike McKerns',
-      maintainer_email = 'mmckerns@caltech.edu',
-      license = 'BSD',
-      platforms = ['any'],
-      url = 'http://www.cacr.caltech.edu/~mmckerns',
-      classifiers = ('Intended Audience :: Developers',
-                     'Programming Language :: Python',
-                     'Topic :: Physics Programming'),
+    - Neither the name of the California Institute of Technology nor
+      the names of its contributors may be used to endorse or promote
+      products derived from this software without specific prior written
+      permission.
 
-      packages = ['dill'],
-      package_dir = {'dill':'dill'},
-""" % (target_version, long_description)
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# add dependencies
-ctypes_version = '>=1.0.1'
-objgraph_version = '>=1.7.2'
-pyreadline_version = '>=1.7.1'
-import sys
-if has_setuptools:
-    setup_code += """
-      zip_safe=False,
-"""
-    if sys.platform[:3] == 'win':
-        setup_code += """
-      install_requires = ['pyreadline%s'],
-""" % (pyreadline_version)
-    # verrrry unlikely that this is still relevant
-    elif hex(sys.hexversion) < '0x20500f0':
-        setup_code += """
-      install_requires = ['ctypes%s'],
-""" % (ctypes_version)
+Copyright (c) 2015 California Institute of Technology. All rights reserved.
 
-# add the scripts, and close 'setup' call
-setup_code += """    
-      scripts=['scripts/unpickle.py','scripts/get_objgraph.py'])
-"""
-
-# exec the 'setup' code
-exec(setup_code)
-
-# if dependencies are missing, print a warning
-try:
-    import ctypes
-    import readline
-except ImportError:
-    print ("\n***********************************************************")
-    print ("WARNING: One of the following dependencies is unresolved:")
-    print ("    ctypes %s" % ctypes_version)
-    if sys.platform[:3] == 'win':
-        print ("    readline %s" % pyreadline_version)
-    print ("***********************************************************\n")
-
-
-if __name__=='__main__':
-    pass
-
-# end of file
+'''

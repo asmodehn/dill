@@ -5,7 +5,11 @@
 # License: 3-clause BSD.  The full license text is available at:
 #  - http://trac.mystic.cacr.caltech.edu/project/pathos/browser/dill/LICENSE
 
+
 import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from dill.temp import dump, dump_source, dumpIO, dumpIO_source
 from dill.temp import load, load_source, loadIO, loadIO_source
 WINDOWS = sys.platform[:3] == 'win'
